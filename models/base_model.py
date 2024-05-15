@@ -15,8 +15,8 @@ class BaseModel():
        id (str) : an uid assigned to each instance created
     """
 
-    def __inti__(self):
-        id = str(uuid.uuid4())
+    def __init__(self):
+        self.id = str(uuid.uuid4())
 
 
     def created_at(self):
