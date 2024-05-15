@@ -29,12 +29,15 @@ class BaseModel():
         """
             Change to dict the arg of the public instance
         """
-        pass
+        #return self.__dict__
+        self.__dict__["__class__"] = type(self).__name__
+        return self.__dict__
 
     def save(self):
         """
             This public method assign the current datetime when an instance
             is created and it will be updated every time the object changes.
         """
+        self.updated_at = datetime.isoformat(datetime.today())
         pass
 
