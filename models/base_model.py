@@ -23,7 +23,7 @@ class BaseModel():
         self.created_at = datetime.isoformat(datetime.today())
 
     def __str__(self):
-        return "{self.__name__} + {self.id} <{self.__dict__}>"
+        return f"{self.__name__} + {self.id} <{self.__dict__}>"
 
     def to_dict(self):
         """
