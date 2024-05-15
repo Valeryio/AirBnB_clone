@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import uuid
+
 """
     This is the module for the base model of all the class we will use
     through this project
@@ -14,4 +16,20 @@ class BaseModel():
     """
 
     def __inti__(self):
+        id = str(uuid.uuid4())
+
+
+    def created_at(self):
+        """
+            This public method assign the current datetime when an instance
+            is created
+        """
         pass
+
+    def updated_at(self):
+        """
+            This public method assign the current datetime when an instance
+            is created and it will be updated every time the object changes.
+        """
+        pass
+
