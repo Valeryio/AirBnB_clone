@@ -23,7 +23,7 @@ class BaseModel():
         self.created_at = datetime.isoformat(datetime.today())
 
     def __str__(self):
-        return f"{self.__name__} + {self.id} <{self.__dict__}>"
+        return f"{type(self).__name__} {self.id} {self.__dict__}"
 
     def to_dict(self):
         """
@@ -39,5 +39,3 @@ class BaseModel():
             is created and it will be updated every time the object changes.
         """
         self.updated_at = datetime.isoformat(datetime.today())
-        pass
-
