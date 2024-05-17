@@ -52,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
             new_user.save()
             print(f"User created: {new_user.id}")
 
-     def do_show(self, line):
+    def do_show(self, line):
         """Prints the string representation of an instance
 based on the class name and id.
         """
@@ -203,14 +203,6 @@ by adding or updating attribute.
                 elif method_name == 'destroy':
                     class_id = splitted[2][1:-1]
                     self.do_destroy(class_name + ' ' + class_id)
-
-    def emptyline(self):
-        """
-        When an empty line is entered in response to the prompt,
-        it won't repeat the last nonempty command entered.
-
-        """
-        pass
 
 
 if __name__ == "__main__":
