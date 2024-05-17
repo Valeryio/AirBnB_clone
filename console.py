@@ -1,9 +1,29 @@
 #!/usr/bin/python3
 """Defines a simple command interpreter for the console"""
 import cmd
+import re
+from shlex import split
 from models.base_model import BaseModel
 from models.user import User
-from models.file_storage import FileStorage
+from models import FileStorage
+
+def parse(arg):
+    curly_braces = re.search(r"\{(.*?)\}", arg)
+    brackets = re.search(r"\[(.*?)\]", arg)
+    if curly_braces is None:
+        if brackets is None:
+            return [i.strip(",") for i in split(arg)]
+        else:
+            lexer = split(arg[:brackets.span()[0]])
+            retl = [i.strip(",") for i in lexer]
+            retl.append(brackets.group())
+            return retl
+    else:
+        lexer = split(arg[:curly_braces.span()[0]])
+        retl = [i.strip(",") for i in lexer]
+        retl.append(curly_braces.group())
+        return retl
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -12,8 +32,10 @@ class HBNBCommand(cmd.Cmd):
     intro = "Welcome to the AirBnB project type 'help' for a list of commands."
     __classes = {
             "User"}
-    storage = FileStorage()
-    storage.reload()
+    def __init__(self):
+        super().__init__()
+        self.storage = FileStorage()
+        self.storage.reload()
 
     def do_quit(self, arg):
         """Quit the command interpreter."""
