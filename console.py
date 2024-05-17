@@ -204,14 +204,6 @@ by adding or updating attribute.
                     class_id = splitted[2][1:-1]
                     self.do_destroy(class_name + ' ' + class_id)
 
-    def emptyline(self):
-        """
-        When an empty line is entered in response to the prompt,
-        it won't repeat the last nonempty command entered.
-
-        """
-        pass
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
