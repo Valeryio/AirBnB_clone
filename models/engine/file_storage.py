@@ -34,16 +34,8 @@ class FileStorage(BaseModel):
         """
             Sets in __objects the obj with key <obj class name>.id
         """
-        #new_object = obj.to_dict()
-        """
-        new_object['created_at'] =  datetime.isoformat(new_object["created_at"])
-        new_object['updated_at'] =  datetime.isoformat(new_object["created_at"])
-        """
-        print("L'OBJET : ", obj)
-        print("IDDDD ------------")
-        #print(new_object)
-        print("IDDDD ------------")
-        self.__objects[obj.id] = obj.to_dict()
+        #print(obj)
+        #self.__objects[obj.id] = obj.to_dict()
 
     def save(self): 
         """

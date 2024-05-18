@@ -40,7 +40,7 @@ class BaseModel():
             self.id = str(uuid.uuid4())
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
-            models.storage.new(self)
+            models.storage.new(self.to_dict())
 
     def __str__(self):
         """
@@ -53,7 +53,7 @@ class BaseModel():
             Change to dict the arg of the public instance
         """
         dtime_args = ["created_at", "updated_at"]
-        new_dict = self.__dict__
+        new_dict = self.__dict__.copy()
 
         for i in dtime_args:
             new_dict[i] = datetime.isoformat(new_dict[i])
