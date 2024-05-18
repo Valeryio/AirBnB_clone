@@ -2,7 +2,7 @@
 
 import uuid
 from datetime import datetime
-from . import storage
+#from . import storage
 
 """
     This is the module for the base model of all the class we will use
