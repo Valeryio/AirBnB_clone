@@ -40,6 +40,9 @@ class BaseModel():
             self.updated_at = datetime.today()
 
     def __str__(self):
+        """
+            String representation of the class BaseModel
+        """
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def to_dict(self):
