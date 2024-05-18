@@ -2,7 +2,7 @@
 
 import json
 from models.base_model import BaseModel
-
+from datetime import datetime
 
 class FileStorage(BaseModel):
     """
@@ -34,18 +34,29 @@ class FileStorage(BaseModel):
         """
             Sets in __objects the obj with key <obj class name>.id
         """
-        self.__objects[obj.id] = obj
+        #new_object = obj.to_dict()
+        """
+        new_object['created_at'] =  datetime.isoformat(new_object["created_at"])
+        new_object['updated_at'] =  datetime.isoformat(new_object["created_at"])
+        """
+        print("L'OBJET : ", obj)
+        print("IDDDD ------------")
+        #print(new_object)
+        print("IDDDD ------------")
+        self.__objects[obj.id] = obj.to_dict()
 
     def save(self): 
         """
             Serializes __objects to the JSON file (path: __file_path)
-        """
+        
         try:
             with open(self.__file_path, "w") as file:
                 json.dump(self.__objects, file)
         except FileNotFoundError:
             print("File not found")
-            pass
+        """
+        pass
+
 
     def reload(self): 
         """
