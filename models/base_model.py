@@ -29,6 +29,7 @@ class BaseModel():
                 **kwargs (dict): a dict of values
         """
         dformat = "%Y-%m-%dT%H:%M:%S.%f"
+
         if kwargs:
             known_args = ["created_at", "updated_at"]
             for key, value in kwargs.items():
@@ -36,11 +37,12 @@ class BaseModel():
                     if key in known_args:
                         value = datetime.strptime(value, dformat)
                     self.__setattr__(key, value)
-        else:
+        else:        
             self.id = str(uuid.uuid4())
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
-            models.storage.new(self.to_dict())
+            #models.storage.new(self.to_dict())
+            models.storage.new(self)
 
     def __str__(self):
         """

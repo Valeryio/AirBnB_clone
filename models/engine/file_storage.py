@@ -34,21 +34,22 @@ class FileStorage(BaseModel):
         """
             Sets in __objects the obj with key <obj class name>.id
         """
-        #print(obj)
-        #self.__objects[obj.id] = obj.to_dict()
+        print("That is my object : ", obj)
+        obj_dict = obj.to_dict()
+        #print(":::>", obj_dict)
+        key = obj_dict["__class__"] + "." + obj_dict["id"]
+        #print("KEY ::::> ",key)
+        #self.__objects[key] = obj
 
     def save(self): 
         """
             Serializes __objects to the JSON file (path: __file_path)
-        
+        """
         try:
             with open(self.__file_path, "w") as file:
                 json.dump(self.__objects, file)
         except FileNotFoundError:
             print("File not found")
-        """
-        pass
-
 
     def reload(self): 
         """
