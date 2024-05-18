@@ -2,6 +2,7 @@
 
 import uuid
 from datetime import datetime
+from . import storage
 
 """
     This is the module for the base model of all the class we will use
@@ -38,6 +39,7 @@ class BaseModel():
             self.id = str(uuid.uuid4())
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
+            storage.new()
 
     def __str__(self):
         """
@@ -64,3 +66,4 @@ class BaseModel():
             is created and it will be updated every time the object changes.
         """
         self.updated_at = datetime.today()
+        storage.save()

@@ -40,8 +40,12 @@ class FileStorage(BaseModel):
         """
             Serializes __objects to the JSON file (path: __file_path)
         """
-        with open(self.__file_path, "w") as file:
-            json.dump(self.__objects, file)
+        try:
+            with open(self.__file_path, "w") as file:
+                json.dump(self.__objects, file)
+        except FileNotFoundError:
+            print("File not found")
+            pass
 
     def reload(self): 
         """
@@ -49,4 +53,9 @@ class FileStorage(BaseModel):
             (__file_path) exists ; otherwise, do nothing. If the file doesn’t
             exist, no exception should be raised)
         """
-        pass
+        try:
+            with open(self.__file_path) as file:
+                self.__objects = json.load(file)
+        except FileNotFoundError:
+            print("File not found")
+            pass
