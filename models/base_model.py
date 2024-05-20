@@ -4,11 +4,11 @@ import uuid
 import models
 from datetime import datetime
 
-
 """
     This is the module for the base model of all the class we will use
     through this project
 """
+
 
 class BaseModel():
     """
@@ -23,7 +23,7 @@ class BaseModel():
     def __init__(self, *args, **kwargs):
         """
             This is the constructor method
-            
+
             Attributes:
                 *args (list): a list of attribute
                 **kwargs (dict): a dict of values
@@ -37,11 +37,11 @@ class BaseModel():
                     if key in known_args:
                         value = datetime.strptime(value, dformat)
                     self.__setattr__(key, value)
-        else:        
+        else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
-            #models.storage.new(self.to_dict())
+            # models.storage.new(self.to_dict())
             models.storage.new(self)
 
     def __str__(self):
