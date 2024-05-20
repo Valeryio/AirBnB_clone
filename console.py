@@ -4,9 +4,11 @@
 import cmd
 import re
 import shlex
+import models
 from datetime import datetime
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
 from models import FileStorage
 
 
@@ -14,30 +16,35 @@ class HBNBCommand(cmd.Cmd):
     """HBNB command interpreter"""
     prompt = "(hbnb)"
     intro = "Welcome to the AirBnB project type 'help' for a list of commands."
-    __classes = {
-            "User"}
+    allowed_classes = ['BaseModel', 'User', 'State', 'City',
+            'Amenity', 'Place', 'Review']
 
-    def __init__(self):
-        super().__init__()
-        self.storage = FileStorage()
-        self.storage.reload()
+    def do_quit(self, inp):
+        """Quit command to exit the program."""
+        print("Exiting HBNB command interpreter...")
+        exit()  # Exit the program
 
-    def do_EOF(self):
+    def do_EOF(self, inp):
+        """EOF command to exit the program (default behavior)."""
         print()
+        exit()  # Exit the program (same as quit)
 
-    def do_create(self, arg):
-        """Usage: create <class>
-        Create a new class instance and print its id.
+    def emptyline(self):
+        """Handle empty lines by passing."""
+        pass  # Do nothing for empty lines
+
+    def do_create(self, line):
+        """Creates a new instance of BaseModel.
         """
-        argl = parse(arg)  # Assuming parse splits arguments
-        if len(argl) == 0:
-            print("** class name missing **")
-        elif argl[0] != "User":  # Check for supported class
+        command = self.parseline(line)[0]
+        if command is None:
+            print('** class name missing **')
+        elif command not in self.allowed_classes:
             print("** class doesn't exist **")
         else:
-            new_user = User()
-            new_user.save()
-            print(f"User created: {new_user.id}")
+            new_obj = eval(command)()
+            new_obj.save()
+            print(new_obj.id)
 
     def do_show(self, line):
         """Prints the string representation of an instance
