@@ -56,13 +56,10 @@ class BaseModel():
         """
         dtime_args = ["created_at", "updated_at"]
         new_dict = self.__dict__.copy()
-        
-        #print("OUR DICT SIMPLY :::: >>> ", self.__dict__)
         for i in dtime_args:
             new_dict[i] = datetime.isoformat(new_dict[i])
 
         new_dict["__class__"] = type(self).__name__
-        #print("OUR NEW DICT :::: >>> ", new_dict)
         return new_dict
 
     def save(self):

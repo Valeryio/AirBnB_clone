@@ -18,25 +18,20 @@ class FileStorage:
     def new(self, obj):
         """Stores a new object in the internal dictionary."""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        print("Here we have : ", obj.to_dict())
+        # print("Here we have : ", obj.to_dict())
         self.__objects[key] = obj.to_dict()
 
     def update(self, obj):
-        print(self.all())
-        # Determiner si l'élément est déjà enregistré
-        print("Id du nouvel objet : ", obj.id)
-
+        """
+            This function updates an object at this actual
+            state in the program
+        """
+        # print("Id of the objet : ", obj.id)
         for key, value in self.__objects.items():
             if value['id'] == obj.id:      
-        # Mettre à jour l'élément
-                print("This obj exist")
+                # print("This obj exist")
                 updated_obj = obj.to_dict()
                 self.__objects[key] = updated_obj
-                return
-
-        # Si l'élément n'est pas enregistré, le créer
-        print("This object don't exist")
-        self.new(obj)
 
     def save(self):
         """Serializes the objects dictionary to a JSON file."""
@@ -51,8 +46,24 @@ class FileStorage:
         back to the objects dictionary (if it exists).
         """
         try:
-            with open(self.__file_path, "r") as f:
-                obj_dict = json.load(f)
+            with open(self.__file_path, "r") as file:
+                reloaded_obj = json.load(file)
+                self.__objects = reloaded_obj
+
+            """
+                simplified_obj = {}
+
+                print("This is our object : ", reloaded_obj)
+
+                for key, value in reloaded_obj.items():
+                    tmp_dict = {}
+                    for second_key, second_value in value.items():
+                        if second_key != "__class__":
+                            tmp_dict[second_key] = second_value
+                    simplified_obj[key] = tmp_dict
+                
+                self.__objects = simplified_obj
+            """
             """
                 class_mapping = {"User": User}  # Example class mapping
                 for key, value in obj_dict.items():
@@ -64,4 +75,5 @@ class FileStorage:
                         print(f"Unknown class: {cls_name}")
             """
         except FileNotFoundError:
+            print("The file have not been found!")
             pass  # Ignore if file doesn't exist
