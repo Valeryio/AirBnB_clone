@@ -42,7 +42,7 @@ class BaseModel():
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
             # models.storage.new(self.to_dict())
-            # models.storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -69,4 +69,4 @@ class BaseModel():
             is created and it will be updated every time the object changes.
         """
         self.updated_at = datetime.today()
-        # models.storage.save()
+        models.storage.save()

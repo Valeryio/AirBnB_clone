@@ -2,7 +2,7 @@
 """Defines the FileStorage class."""
 import json
 from models.base_model import BaseModel
-from models.user import User
+#from models.user import User
 
 
 class FileStorage:
@@ -18,13 +18,16 @@ class FileStorage:
     def new(self, obj):
         """Stores a new object in the internal dictionary."""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        print("Here we have : ", obj.to_dict())
+        self.__objects[key] = obj.to_dict()
 
     def save(self):
         """Serializes the objects dictionary to a JSON file."""
-        obj_dict = {obj: o.to_dict() for obj in self.__objects.key()}
-        with open(self.__file_path, "w") as f:
-            json.dump(obj_dict, f, indent=4)
+        #obj_dict = {obj: obj.to_dict() for obj in self.__objects.keys()}
+
+        #print("Our object is : ", self.__objects)
+        with open(self.__file_path, "w") as file:
+            json.dump(self.__objects, file, indent=4)
 
     def reload(self):
         """Deserializes the JSON file
@@ -33,6 +36,7 @@ class FileStorage:
         try:
             with open(self.__file_path, "r") as f:
                 obj_dict = json.load(f)
+            """
                 class_mapping = {"User": User}  # Example class mapping
                 for key, value in obj_dict.items():
                     cls_name = value["__class__"]
@@ -41,5 +45,6 @@ class FileStorage:
                         self.new(class_mapping[cls_name](**value))
                     else:
                         print(f"Unknown class: {cls_name}")
+            """
         except FileNotFoundError:
             pass  # Ignore if file doesn't exist
