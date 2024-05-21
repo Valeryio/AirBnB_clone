@@ -18,8 +18,25 @@ class FileStorage:
     def new(self, obj):
         """Stores a new object in the internal dictionary."""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        #print("Here we have : ", obj.to_dict())
+        print("Here we have : ", obj.to_dict())
         self.__objects[key] = obj.to_dict()
+
+    def update(self, obj):
+        print(self.all())
+        # Determiner si l'élément est déjà enregistré
+        print("Id du nouvel objet : ", obj.id)
+
+        for key, value in self.__objects.items():
+            if value['id'] == obj.id:      
+        # Mettre à jour l'élément
+                print("This obj exist")
+                updated_obj = obj.to_dict()
+                self.__objects[key] = updated_obj
+                return
+
+        # Si l'élément n'est pas enregistré, le créer
+        print("This object don't exist")
+        self.new(obj)
 
     def save(self):
         """Serializes the objects dictionary to a JSON file."""

@@ -30,6 +30,10 @@ class BaseModel():
         """
         dformat = "%Y-%m-%dT%H:%M:%S.%f"
 
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.today()
+        self.updated_at = datetime.today()
+
         if kwargs:
             known_args = ["created_at", "updated_at"]
             for key, value in kwargs.items():
@@ -38,10 +42,6 @@ class BaseModel():
                         value = datetime.strptime(value, dformat)
                     self.__setattr__(key, value)
         else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.today()
-            self.updated_at = datetime.today()
-            # models.storage.new(self.to_dict())
             models.storage.new(self)
 
     def __str__(self):
@@ -56,11 +56,13 @@ class BaseModel():
         """
         dtime_args = ["created_at", "updated_at"]
         new_dict = self.__dict__.copy()
-
+        
+        #print("OUR DICT SIMPLY :::: >>> ", self.__dict__)
         for i in dtime_args:
             new_dict[i] = datetime.isoformat(new_dict[i])
 
         new_dict["__class__"] = type(self).__name__
+        #print("OUR NEW DICT :::: >>> ", new_dict)
         return new_dict
 
     def save(self):
@@ -69,4 +71,5 @@ class BaseModel():
             is created and it will be updated every time the object changes.
         """
         self.updated_at = datetime.today()
+        models.storage.update(self)
         models.storage.save()
