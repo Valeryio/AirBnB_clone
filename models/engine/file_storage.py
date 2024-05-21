@@ -18,7 +18,7 @@ class FileStorage:
     def new(self, obj):
         """Stores a new object in the internal dictionary."""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        print("Here we have : ", obj.to_dict())
+        #print("Here we have : ", obj.to_dict())
         self.__objects[key] = obj.to_dict()
 
     def save(self):
