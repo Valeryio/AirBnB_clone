@@ -76,5 +76,4 @@ class FileStorage:
                         print(f"Unknown class: {cls_name}")
             """
         except FileNotFoundError:
-            print("The file have not been found!")
-            pass  # Ignore if file doesn't exist
+            # print("The file have not been found!")
