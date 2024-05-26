@@ -1,0 +1,17 @@
+
+:root
+{
+  /*-------------COLOR VARIABLES---------------*/
+  --clr-primary-red: #ff0000;
+  --clr-primary-green: #00ff00;
+}
+
+body
+{
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 70px auto 60px;
+  position: relative;
+  /* color: black; */
+}
