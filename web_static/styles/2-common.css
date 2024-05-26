@@ -44,14 +44,15 @@ body
 
   display: flex;
 
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .filters
 {
   width: 100%;
-  padding: 10px;
-  border: 1px solid violet;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid #dddddd;
 }
 
 
@@ -64,6 +65,8 @@ body
   border-radius: 4px;
 
   font-size: var(--fs-large);
+
+  cursor: pointer;
 }
 
 .btn--primary
