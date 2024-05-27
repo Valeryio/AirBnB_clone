@@ -2,6 +2,7 @@
 .footer
 {
   height: 60px;
+  width: 100%;
   grid-row-start: 3;
   display: flex;
   align-items: center;
