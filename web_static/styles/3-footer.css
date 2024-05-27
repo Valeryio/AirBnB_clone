@@ -1,0 +1,10 @@
+
+.footer
+{
+  height: 60px;
+  grid-row-start: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #cccccc;
+}
