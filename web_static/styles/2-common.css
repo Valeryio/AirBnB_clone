@@ -1,9 +1,0 @@
-
-
-body
-{
-  margin: 0;
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 70px auto 60px;
-}
