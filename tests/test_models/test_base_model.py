@@ -7,6 +7,7 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestBaseModel(unittest.TestCase):
 
     def setUp(self):
@@ -19,7 +20,7 @@ class TestBaseModel(unittest.TestCase):
         """
         self.assertIsInstance(self.b1.id, str)
         self.assertNotEqual(self.b1.id, self.b2.id)
-        
+
         self.assertIsInstance(self.b1.created_at, datetime)
         self.assertIsInstance(self.b1.updated_at, datetime)
 
@@ -27,7 +28,8 @@ class TestBaseModel(unittest.TestCase):
         """
             This is a test for the str dundle method
         """
-        result = f"[{type(self.b2).__name__}] ({self.b2.id}) {self.b2.__dict__}"
+        result = f"[{type(self.b2).__name__}] ({self.b2.id}) \
+                {self.b2.__dict__}"
         self.assertEqual(self.b2.__str__(), result)
 
     def test_save(self):
@@ -40,7 +42,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(previous_update, current_update)
 
     def test_to_dict(self):
-
         result = self.b2.to_dict()
         self.assertIsInstance(result['updated_at'], str)
         self.assertIsInstance(result['created_at'], str)
