@@ -16,11 +16,11 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, line):
         """This method quits the interpreter"""
         print("Quit command to exit the program")
-        exit()
+        return True
 
     def do_EOF(self, line):
         """This is the end of file program that quits the cmd"""
-        exit()
+        return True
 
 
 if __name__ == "__main__":
