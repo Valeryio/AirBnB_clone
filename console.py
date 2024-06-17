@@ -22,6 +22,10 @@ class HBNBCommand(cmd.Cmd):
         """This is the end of file program that quits the cmd"""
         return True
 
+    def emptyline(self):
+        """This method do nothing when the line is empty"""
+        pass
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
