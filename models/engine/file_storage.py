@@ -13,7 +13,14 @@ class FileStorage:
 
     def all(self) -> dict:
         """Returns the dictionary containing all stored objects."""
-        return self.__objects
+        reloaded_dict = self.__objects.copy()
+
+        new_reloaded_obj = {}
+        for key, obj in reloaded_dict.items():
+            new_reloaded_obj[key] = BaseModel(obj)
+
+        # self.__objects = new_reloaded_obj
+        return new_reloaded_obj
 
     def new(self, obj):
         """Stores a new object in the internal dictionary."""
@@ -26,7 +33,6 @@ class FileStorage:
             This function updates an object at this actual
             state in the program
         """
-        # print("Id of the objet : ", obj.id)
         for key, value in self.__objects.items():
             if value['id'] == obj.id:      
                 # print("This obj exist")
@@ -35,9 +41,6 @@ class FileStorage:
 
     def save(self):
         """Serializes the objects dictionary to a JSON file."""
-        #obj_dict = {obj: obj.to_dict() for obj in self.__objects.keys()}
-
-        #print("Our object is : ", self.__objects)
         with open(self.__file_path, "w") as file:
             json.dump(self.__objects, file, indent=4)
 
@@ -49,7 +52,8 @@ class FileStorage:
         try:
             with open(self.__file_path, "r") as file:
                 reloaded_obj = json.load(file)
-                self.__objects = reloaded_obj
+
+                self.__objects = reloaded_obj.copy()
 
             """
                 simplified_obj = {}
