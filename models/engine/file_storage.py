@@ -13,6 +13,7 @@ class FileStorage:
 
     def all(self) -> dict:
         """Returns the dictionary containing all stored objects."""
+        """
         reloaded_dict = self.__objects.copy()
 
         new_reloaded_obj = {}
@@ -21,6 +22,8 @@ class FileStorage:
 
         # self.__objects = new_reloaded_obj
         return new_reloaded_obj
+        """
+        return self.__objects
 
     def new(self, obj):
         """Stores a new object in the internal dictionary."""
@@ -54,6 +57,7 @@ class FileStorage:
                 reloaded_obj = json.load(file)
 
                 self.__objects = reloaded_obj.copy()
+
 
             """
                 simplified_obj = {}
