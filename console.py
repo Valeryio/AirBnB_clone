@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This is the module about the console of HBNB
+"""This is the module about the console of HBNB"""
 
 import cmd
 
