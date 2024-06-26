@@ -7,13 +7,52 @@ from models.base_model import BaseModel
 
 class FileStorage:
     """A class for serializing and deserializing objects to a JSON file."""
+#    __file_path = "file.json"
+#    __objects = {}
 
-    __file_path = "file.json"
-    __objects = {}
+    def __init__(self):
+        """This is the constructor of the class"""
+        self.file_path = "file.json"
+        self.objects = {}
+
+    @property
+    def file_path(self):
+        """This is the getter of the __file_path private attribute"""
+        return self.__file_path
+
+    @property
+    def objects(self):
+        """This is the getter of the __objects private attribute"""
+        return self.__objects
+
+    @file_path.setter
+    def file_path(self, path):
+        """This is the setter of the private attribute __file_path
+
+        Arguments:
+            @path: (str), the path to the file to use by the class
+
+        Raises:
+            TypeError: If the path given is not a string
+        """
+        if type(path) is not str:
+            raise TypeError()
+        else:
+            self.__file_path = path
+
+    @objects.setter
+    def objects(self, obj):
+        """This is the setter of the private attribute __objects
+
+        Arguments:
+            @obj: (BaseModel), the new object to add
+        """
+        self.__objects = obj
+
 
     def all(self) -> dict:
         """Returns the dictionary containing all stored objects."""
-        """
+        
         reloaded_dict = self.__objects.copy()
 
         new_reloaded_obj = {}
@@ -22,23 +61,20 @@ class FileStorage:
 
         # self.__objects = new_reloaded_obj
         return new_reloaded_obj
-        """
-        return self.__objects
+        
+        # return self.__objects
 
     def new(self, obj):
-        """Stores a new object in the internal dictionary."""
+        """Stores a new object in the __objects attribute dictionary """
         key = f"{obj.__class__.__name__}.{obj.id}"
-        # print("Here we have : ", obj.to_dict())
         self.__objects[key] = obj.to_dict()
 
     def update(self, obj):
-        """
-            This function updates an object at this actual
-            state in the program
-        """
+        """Updates an object at this actual state in the program """
         for key, value in self.__objects.items():
             if value['id'] == obj.id:
-                # print("This obj exist")
+                # The object is updated with the to_dict() method
+                # which take in account all the new parameters of this one
                 updated_obj = obj.to_dict()
                 self.__objects[key] = updated_obj
 
@@ -48,10 +84,8 @@ class FileStorage:
             json.dump(self.__objects, file, indent=4)
 
     def reload(self):
-        """
-            Deserializes the JSON file
-            back to the objects dictionary (if it exists).
-        """
+        """Deserializes the JSON file back to the objects dictionary
+        (if it exists)"""
         try:
             with open(self.__file_path, "r") as file:
                 reloaded_obj = json.load(file)
@@ -84,4 +118,3 @@ class FileStorage:
             """
         except FileNotFoundError:
             pass
-            # print("The file have not been found!")

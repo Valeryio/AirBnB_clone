@@ -11,8 +11,7 @@ from datetime import datetime
 
 
 class BaseModel():
-    """
-        This is the BaseModel class
+    """This is the BaseModel class
 
         Attributes:
             id (str) : an uid assigned to each instance created
@@ -21,8 +20,7 @@ class BaseModel():
     """
 
     def __init__(self, *args, **kwargs):
-        """
-            This is the constructor method
+        """This is the constructor method
 
             Attributes:
                 *args (list): a list of attribute
@@ -45,15 +43,12 @@ class BaseModel():
             models.storage.new(self)
 
     def __str__(self):
-        """
-            String representation of the class BaseModel
-        """
+        """String representation of the class BaseModel"""
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def to_dict(self):
-        """
-            Change to dict the arg of the public instance
-        """
+        """Returns a new customised __dict__ of the BaseModel current 
+        object"""
         dtime_args = ["created_at", "updated_at"]
         new_dict = self.__dict__.copy()
         for i in dtime_args:
@@ -63,10 +58,8 @@ class BaseModel():
         return new_dict
 
     def save(self):
-        """
-            This public method assign the current datetime when an instance
-            is created and it will be updated every time the object changes.
-        """
+        """Assign the current datetime when an instance is created. This date
+        will be updated every time the object changes"""
         self.updated_at = datetime.today()
         models.storage.update(self)
         models.storage.save()
