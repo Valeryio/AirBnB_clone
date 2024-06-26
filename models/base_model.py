@@ -12,7 +12,7 @@ from datetime import datetime
 
 class BaseModel():
     """
-        This is the BaseMOdel class
+        This is the BaseModel class
 
         Attributes:
             id (str) : an uid assigned to each instance created
