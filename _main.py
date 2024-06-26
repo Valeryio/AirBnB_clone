@@ -7,7 +7,7 @@ from models.base_model import BaseModel
 
 all_objs = storage.all()
 
-#print(f"Voici STORAGE.ALL ::: > {all_objs}")
+# print(f"Voici STORAGE.ALL ::: > {all_objs}")
 
 print("-- Reloaded objects --")
 for obj_id in all_objs.keys():
@@ -22,8 +22,7 @@ my_model.save()
 print(my_model)
 
 
-
-
+                                                                                                                                                               
 """
 
 import os

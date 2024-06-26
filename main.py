@@ -5,7 +5,6 @@
 from models.engine.tmp_file_storage import *
 from models.engine.tmp_file_storage import FileStorage
 
-
 class FileStorage(FileStorage):
     """Doc
     """
@@ -14,4 +13,3 @@ class FileStorage(FileStorage):
         """DOC
         """
         pass
-
