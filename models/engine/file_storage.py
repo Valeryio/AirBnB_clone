@@ -37,7 +37,7 @@ class FileStorage:
             state in the program
         """
         for key, value in self.__objects.items():
-            if value['id'] == obj.id:      
+            if value['id'] == obj.id:
                 # print("This obj exist")
                 updated_obj = obj.to_dict()
                 self.__objects[key] = updated_obj
@@ -58,7 +58,6 @@ class FileStorage:
 
                 self.__objects = reloaded_obj.copy()
 
-
             """
                 simplified_obj = {}
 
@@ -70,7 +69,7 @@ class FileStorage:
                         if second_key != "__class__":
                             tmp_dict[second_key] = second_value
                     simplified_obj[key] = tmp_dict
-                
+
                 self.__objects = simplified_obj
             """
             """
