@@ -83,9 +83,9 @@ class FileStorage:
         try:
             with open(self.__file_path, "r") as file:
                 reloaded_obj = json.load(file)
-                print("Simple print : ", reloaded_obj)
+                # print("Simple print : ", reloaded_obj)
                 for key, value in reloaded_obj.items():
-                    print("Here RELOADED : ", value)
+                    # print("Here RELOADED : ", value)
                     self.__objects[key] = BaseModel(value)
 
             """
