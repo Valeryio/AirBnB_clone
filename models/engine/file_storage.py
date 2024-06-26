@@ -7,8 +7,6 @@ from models.base_model import BaseModel
 
 class FileStorage:
     """A class for serializing and deserializing objects to a JSON file."""
-#    __file_path = "file.json"
-#    __objects = {}
 
     def __init__(self):
         """This is the constructor of the class"""
@@ -49,30 +47,19 @@ class FileStorage:
         """
         self.__objects = obj
 
-
-    def all(self) -> dict:
+    def all(self):
         """Returns the dictionary containing all stored objects."""
-        
-        reloaded_dict = self.__objects.copy()
-
-        new_reloaded_obj = {}
-        for key, obj in reloaded_dict.items():
-            new_reloaded_obj[key] = BaseModel(obj)
-
-        # self.__objects = new_reloaded_obj
-        return new_reloaded_obj
-        
-        # return self.__objects
+        return self.__objects
 
     def new(self, obj):
         """Stores a new object in the __objects attribute dictionary """
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj.to_dict()
+        self.__objects[key] = obj
 
     def update(self, obj):
         """Updates an object at this actual state in the program """
         for key, value in self.__objects.items():
-            if value['id'] == obj.id:
+            if key == str(obj.__class__)+"."+obj.id:
                 # The object is updated with the to_dict() method
                 # which take in account all the new parameters of this one
                 updated_obj = obj.to_dict()
@@ -80,6 +67,13 @@ class FileStorage:
 
     def save(self):
         """Serializes the objects dictionary to a JSON file."""
+        new_object = {}
+        for key, value in self.__objects.items():
+            if type(value) is BaseModel:
+                new_object[key] = value.to_dict()
+
+        self.__objects = new_object
+
         with open(self.__file_path, "w") as file:
             json.dump(self.__objects, file, indent=4)
 
@@ -89,8 +83,10 @@ class FileStorage:
         try:
             with open(self.__file_path, "r") as file:
                 reloaded_obj = json.load(file)
-
-                self.__objects = reloaded_obj.copy()
+                print("Simple print : ", reloaded_obj)
+                for key, value in reloaded_obj.items():
+                    print("Here RELOADED : ", value)
+                    self.__objects[key] = BaseModel(value)
 
             """
                 simplified_obj = {}
@@ -105,8 +101,7 @@ class FileStorage:
                     simplified_obj[key] = tmp_dict
 
                 self.__objects = simplified_obj
-            """
-            """
+
                 class_mapping = {"User": User}  # Example class mapping
                 for key, value in obj_dict.items():
                     cls_name = value["__class__"]

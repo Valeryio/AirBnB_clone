@@ -4,13 +4,11 @@ import uuid
 import models
 from datetime import datetime
 
-"""
-    This is the module for the base model of all the class we will use
-    through this project
-"""
+"""This is the module for the base model of all the class we will use
+    through this project"""
 
 
-class BaseModel():
+class BaseModel:
     """This is the BaseModel class
 
         Attributes:
@@ -32,6 +30,11 @@ class BaseModel():
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
 
+        # If there is *args arguments, let's convert them to **kwargs...
+        if args is not None and len(args) == 1:
+            # print("ARGS ::::>>> ", args[0])
+            kwargs = args[0]
+
         if kwargs:
             known_args = ["created_at", "updated_at"]
             for key, value in kwargs.items():
@@ -39,6 +42,7 @@ class BaseModel():
                     if key in known_args:
                         value = datetime.strptime(value, dformat)
                     self.__setattr__(key, value)
+            # models.storage.new(self)
         else:
             models.storage.new(self)
 
@@ -61,5 +65,6 @@ class BaseModel():
         """Assign the current datetime when an instance is created. This date
         will be updated every time the object changes"""
         self.updated_at = datetime.today()
+        models.storage.new(self)
         models.storage.update(self)
         models.storage.save()
