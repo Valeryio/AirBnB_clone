@@ -67,4 +67,4 @@ class BaseModel:
         self.updated_at = datetime.today()
         # models.storage.new(self)
         # models.storage.update(self)
-        models.storage.save()
+        # models.storage.save()
