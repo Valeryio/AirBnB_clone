@@ -42,9 +42,14 @@ class BaseModel:
                         value = datetime.strptime(value, dformat)
                     self.__setattr__(key, value)
             # models.storage.new(self)
-        # else:
+        else:
+            pass
 
             # models.storage.new(self)
+
+    def __repr__(self):
+        """Returns the intern representation of the class"""
+        return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def __str__(self):
         """String representation of the class BaseModel"""

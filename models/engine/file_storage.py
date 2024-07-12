@@ -5,11 +5,12 @@ from models.base_model import BaseModel
 # from models.user import User
 
 
-class FileStorage:
+class FileStorage(BaseModel):
     """A class for serializing and deserializing objects to a JSON file."""
 
     def __init__(self):
         """This is the constructor of the class"""
+        super().__init__()
         self.file_path = "file.json"
         self.objects = {}
 
@@ -72,7 +73,8 @@ class FileStorage:
         new_object = {}
 
         """This loop return the object's value to their 'dict form'
-            to do the serialisation
+            to 
+            do the serialisation
         """
         for key, value in self.__objects.items():
             if type(value) is BaseModel:
