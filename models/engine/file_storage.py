@@ -59,19 +59,26 @@ class FileStorage:
     def update(self, obj):
         """Updates an object at this actual state in the program """
         for key, value in self.__objects.items():
-            if key == str(obj.__class__)+"."+obj.id:
-                # The object is updated with the to_dict() method
-                # which take in account all the new parameters of this one
+            current_key = str(obj.__class__)+"."+obj.id
+            if key == current_key:
+                """The object is updated with the to_dict() method
+                    which take in account all the new parameters of this
+                    one """
                 updated_obj = obj.to_dict()
                 self.__objects[key] = updated_obj
 
     def save(self):
         """Serializes the objects dictionary to a JSON file."""
         new_object = {}
+
+        """This loop return the object's value to their 'dict form'
+            to do the serialisation
+        """
         for key, value in self.__objects.items():
             if type(value) is BaseModel:
                 new_object[key] = value.to_dict()
 
+        """__objects becomes a new object"""
         self.__objects = new_object
 
         with open(self.__file_path, "w") as file:

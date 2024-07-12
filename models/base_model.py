@@ -32,7 +32,6 @@ class BaseModel:
 
         # If there is *args arguments, let's convert them to **kwargs...
         if args is not None and len(args) == 1:
-            # print("ARGS ::::>>> ", args[0])
             kwargs = args[0]
 
         if kwargs:
@@ -43,8 +42,9 @@ class BaseModel:
                         value = datetime.strptime(value, dformat)
                     self.__setattr__(key, value)
             # models.storage.new(self)
-        else:
-            models.storage.new(self)
+        # else:
+
+            # models.storage.new(self)
 
     def __str__(self):
         """String representation of the class BaseModel"""
