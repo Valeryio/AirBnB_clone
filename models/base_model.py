@@ -65,6 +65,6 @@ class BaseModel:
         """Assign the current datetime when an instance is created. This date
         will be updated every time the object changes"""
         self.updated_at = datetime.today()
-        # models.storage.new(self)
+        models.storage.new(self)
         # models.storage.update(self)
-        # models.storage.save()
+        models.storage.save()
