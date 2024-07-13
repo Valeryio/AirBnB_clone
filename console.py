@@ -78,6 +78,9 @@ class HBNBCommand(cmd.Cmd):
         print("Quit command to exit the program")
         return True
 
+    def emptyline(self):
+        pass
+
     def do_EOF(self, line):
         """This is the end of file program that quits the cmd
         @param
