@@ -83,7 +83,7 @@ all_reloaded = storage.all()
 
 if len(all_reloaded.keys()) != len(ids):
     print("Missing after reload 2")
-"""
+
 for id in ids:
     if all_reloaded.get(id) is None and all_reloaded.get("{}.{}".format("BaseModel", id)) is None:
         print("Missing 2 {}".format(id))
@@ -92,4 +92,3 @@ try:
     os.remove(file_path)
 except Exception as e:
     pass
-"""
