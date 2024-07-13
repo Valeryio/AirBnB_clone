@@ -48,7 +48,6 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print(all_objects[line_parameters[1]])
 
-
     def do_quit(self, line):
         """This method quits the interpreter"""
         print("Quit command to exit the program")

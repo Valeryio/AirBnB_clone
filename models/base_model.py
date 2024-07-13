@@ -56,7 +56,7 @@ class BaseModel:
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def to_dict(self):
-        """Returns a new customised __dict__ of the BaseModel current 
+        """Returns a new customised __dict__ of the BaseModel current
         object"""
         dtime_args = ["created_at", "updated_at"]
         new_dict = self.__dict__.copy()

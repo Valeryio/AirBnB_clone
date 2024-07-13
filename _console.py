@@ -17,7 +17,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
     intro = "Welcome to the AirBnB project type 'help' for a list of commands."
     allowed_classes = ['BaseModel', 'User', 'State', 'City',
-            'Amenity', 'Place', 'Review']
+                       'Amenity', 'Place', 'Review']
 
     def do_quit(self, inp):
         """Quit command to exit the program."""
