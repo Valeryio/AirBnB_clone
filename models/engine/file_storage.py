@@ -56,6 +56,7 @@ class FileStorage(BaseModel):
         """Stores a new object in the __objects attribute dictionary """
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
+        # print("THE OBJECTS : ", self.objects)
 
     def update(self, obj):
         """Updates an object at this actual state in the program """
@@ -73,18 +74,17 @@ class FileStorage(BaseModel):
         new_object = {}
 
         """This loop return the object's value to their 'dict form'
-            to 
-            do the serialisation
+            to do the serialisation
         """
         for key, value in self.__objects.items():
             if type(value) is BaseModel:
                 new_object[key] = value.to_dict()
 
         """__objects becomes a new object"""
-        self.__objects = new_object
+        # self.__objects = new_object
 
         with open(self.__file_path, "w") as file:
-            json.dump(self.__objects, file, indent=4)
+            json.dump(new_object, file, indent=4)
 
     def reload(self):
         """Deserializes the JSON file back to the objects dictionary
