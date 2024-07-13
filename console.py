@@ -70,9 +70,9 @@ class HBNBCommand(cmd.Cmd):
         storage.objects.pop(key_to_delete)
         print("After all : ", storage.objects)
 
-    def do_quit(self):
+    def do_quit(self, line):
         """This method quits the interpreter
-        @return:
+            @return:
             True to quit the cmd
         """
         print("Quit command to exit the program")
