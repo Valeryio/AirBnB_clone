@@ -9,4 +9,7 @@ class FileStorage(FileStorage):
     """Doc
     """
 
-    __file_path = None
+    def reload(self):
+        """DOC
+        """
+        pass
