@@ -11,14 +11,14 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """ This is the HBNB Class for the Airbnb project
 
-    Attributes:
-        @prompt:(str), the prompt for the beginning of the line
+    @param:
+        prompt:(str), the prompt for the beginning of the line
     """
     prompt = "(hbnb) "
     known_classes = ["BaseModel", "FileStorage", ""]
 
     def do_create(self, line):
-        """ This methods creates a new instance of BaseModel and
+        """ This method creates a new instance of BaseModel and
         save it to a json file"""
         if line == "":
             print("** class name missing **")
@@ -33,8 +33,8 @@ class HBNBCommand(cmd.Cmd):
         """This method prints the string representation of an instance based
         on the class name and the id
 
-        Arguments:
-            @line
+        @param:
+            line: the line of the prompt with the class instance to show
         """
 
         # Verifications of the line input
@@ -59,30 +59,42 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-    def do_destroy(self, id):
-        pass
+    def do_destroy(self, id_to_delete):
+        key_to_delete = ""
+        all_objects = storage.objects
+        print("Before all : ", all_objects)
+        for key, value in all_objects.items():
+            if value.__dict__['id'] == id_to_delete:
+                key_to_delete = key
 
-    def do_quit(self, line):
-        """This method quits the interpreter"""
+        storage.objects.pop(key_to_delete)
+        print("After all : ", storage.objects)
+
+    def do_quit(self):
+        """This method quits the interpreter
+        @return:
+            True to quit the cmd
+        """
         print("Quit command to exit the program")
         return True
 
     def do_EOF(self, line):
-        """This is the end of file program that quits the cmd"""
+        """This is the end of file program that quits the cmd
+        @param
+            line: 
+        @return:
+            True for the execution of the program
+        """
         return True
-
-    def emptyline(self):
-        """This method do nothing when the line is empty"""
-        pass
 
     def checker(self, line):
         """This method checks a line with its parameters to
             execute the right command of the terminal
 
-            Arguments:
+            @param:
                 @line: (str), the line to check
 
-            Returns:
+            @return:
                 0 on FAILURE
                 1 on SUCCESS
         """
