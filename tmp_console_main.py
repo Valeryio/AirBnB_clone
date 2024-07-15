@@ -3,9 +3,14 @@
 """This is the module about the console of HBNB"""
 
 import cmd
-from models.engine.file_storage import FileStorage
 from models.user import User
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.review import Review
+from models.amenity import Amenity
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from models import storage
 
 
@@ -17,7 +22,8 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     known_classes = {"BaseModel": BaseModel, "FileStorage": FileStorage,
-                     "User": User}
+                     "User": User, "City": City, "Place": Place, "State": State,
+                     "Review": Review, "Amenity": Amenity}
 
     def do_create(self, line):
         """ This method creates a new instance of BaseModel and
