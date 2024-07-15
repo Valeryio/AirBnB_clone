@@ -4,6 +4,7 @@
 
 import cmd
 from models.engine.file_storage import FileStorage
+from models.user import User
 from models.base_model import BaseModel
 from models import storage
 
@@ -15,7 +16,8 @@ class HBNBCommand(cmd.Cmd):
         prompt:(str), the prompt for the beginning of the line
     """
     prompt = "(hbnb) "
-    known_classes = ["BaseModel", "FileStorage", ""]
+    known_classes = {"BaseModel": BaseModel, "FileStorage": FileStorage,
+                     "User": User}
 
     def do_create(self, line):
         """ This method creates a new instance of BaseModel and
@@ -25,11 +27,12 @@ class HBNBCommand(cmd.Cmd):
         elif line not in self.known_classes:
             print("** class doesn't exist **")
         else:
-            new_model = BaseModel()
+            for key, class_value in self.known_classes.items():
+                if key == line:
+                    new_model = class_value()
+
             storage.new(new_model)
             storage.save()
-            # print(storage.objects)
-            # print("Let's return the id")
             print(new_model.id)
 
     def do_show(self, line):
@@ -59,8 +62,6 @@ class HBNBCommand(cmd.Cmd):
 
             if object_to_show != "":
                 print(object_to_show)
-            # else:
-              #  print("** no instance found **")
 
     def do_destroy(self, line):
 
@@ -71,14 +72,13 @@ class HBNBCommand(cmd.Cmd):
             id_to_delete = line_arguments[1]
             key_to_delete = ""
             all_objects = storage.objects
-            # print("Before all : ", all_objects)
+
             for key, value in all_objects.items():
                 if value.__dict__['id'] == id_to_delete:
                     key_to_delete = key
 
             storage.objects.pop(key_to_delete)
             storage.save()
-            # print("After all : ", storage.objects)
 
     def do_all(self, line):
         """This method prints all the objects in the local storage"""
@@ -107,19 +107,8 @@ class HBNBCommand(cmd.Cmd):
             object_attr_value = line_arguments[3].replace("\"", "")
             object_key = object_class_name + "." + object_id
 
-            #new_object = BaseModel(storage.objects[object_key].to_dict())
-            #setattr(new_object, object_attr, object_attr_value)
-
-            # print("No update ", storage.objects[object_key].to_dict())
-
-            #print("New update : ", new_object)
             setattr(storage.objects[object_key], object_attr, object_attr_value)
             storage.save()
-            # storage.objects[object_key][object_attr] = object_attr_value
-
-            # print("Everything is well", object_attr_value)
-
-
 
     def do_quit(self, line):
         """This method quits the interpreter
@@ -167,7 +156,7 @@ class HBNBCommand(cmd.Cmd):
                 object_id = None
                 pass
 
-            if class_name and class_name not in self.known_classes\
+            if class_name and class_name not in self.known_classes.keys()\
                     or type(class_name) is not str:
                 print("** class doesn't exist **")
                 return 0
