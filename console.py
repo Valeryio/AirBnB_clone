@@ -33,8 +33,6 @@ class HBNBCommand(cmd.Cmd):
 
             storage.new(new_model)
             storage.save()
-            # print(storage.objects)
-            # print("Let's return the id")
             print(new_model.id)
 
     def do_show(self, line):
@@ -64,8 +62,6 @@ class HBNBCommand(cmd.Cmd):
 
             if object_to_show != "":
                 print(object_to_show)
-            # else:
-              #  print("** no instance found **")
 
     def do_destroy(self, line):
 
@@ -76,14 +72,13 @@ class HBNBCommand(cmd.Cmd):
             id_to_delete = line_arguments[1]
             key_to_delete = ""
             all_objects = storage.objects
-            # print("Before all : ", all_objects)
+
             for key, value in all_objects.items():
                 if value.__dict__['id'] == id_to_delete:
                     key_to_delete = key
 
             storage.objects.pop(key_to_delete)
             storage.save()
-            # print("After all : ", storage.objects)
 
     def do_all(self, line):
         """This method prints all the objects in the local storage"""
@@ -112,19 +107,8 @@ class HBNBCommand(cmd.Cmd):
             object_attr_value = line_arguments[3].replace("\"", "")
             object_key = object_class_name + "." + object_id
 
-            #new_object = BaseModel(storage.objects[object_key].to_dict())
-            #setattr(new_object, object_attr, object_attr_value)
-
-            # print("No update ", storage.objects[object_key].to_dict())
-
-            #print("New update : ", new_object)
             setattr(storage.objects[object_key], object_attr, object_attr_value)
             storage.save()
-            # storage.objects[object_key][object_attr] = object_attr_value
-
-            # print("Everything is well", object_attr_value)
-
-
 
     def do_quit(self, line):
         """This method quits the interpreter

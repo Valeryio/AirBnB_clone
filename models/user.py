@@ -26,7 +26,6 @@ class User(BaseModel):
         """This method init a user class
         """
         super().__init__()
-        print(self.__class__.__name__)
         self.email = ""
         self.password = ""
         self.first_name = ""
