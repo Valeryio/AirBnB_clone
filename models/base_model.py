@@ -49,7 +49,9 @@ class BaseModel:
 
     def __repr__(self):
         """Returns the intern representation of the class"""
-        return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
+
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+        # return f"[{self.__class__}] ({self.id}) {self.__dict__}"
 
     def __str__(self):
         """String representation of the class BaseModel"""
@@ -63,7 +65,9 @@ class BaseModel:
         for i in dtime_args:
             new_dict[i] = datetime.isoformat(new_dict[i])
 
-        new_dict["__class__"] = type(self).__name__
+        new_dict["__class__"] = self.__class__.__name__
+        # new_dict["__class__"] = self.__class__
+
         return new_dict
 
     def save(self):

@@ -4,6 +4,7 @@
 
 import cmd
 from models.engine.file_storage import FileStorage
+from models.user import User
 from models.base_model import BaseModel
 from models import storage
 
@@ -15,7 +16,8 @@ class HBNBCommand(cmd.Cmd):
         prompt:(str), the prompt for the beginning of the line
     """
     prompt = "(hbnb) "
-    known_classes = ["BaseModel", "FileStorage", ""]
+    known_classes = {"BaseModel": BaseModel, "FileStorage": FileStorage,
+                     "User": User}
 
     def do_create(self, line):
         """ This method creates a new instance of BaseModel and
@@ -25,7 +27,10 @@ class HBNBCommand(cmd.Cmd):
         elif line not in self.known_classes:
             print("** class doesn't exist **")
         else:
-            new_model = BaseModel()
+            for key, class_value in self.known_classes.items():
+                if key == line:
+                    new_model = class_value()
+
             storage.new(new_model)
             storage.save()
             # print(storage.objects)
@@ -167,7 +172,7 @@ class HBNBCommand(cmd.Cmd):
                 object_id = None
                 pass
 
-            if class_name and class_name not in self.known_classes\
+            if class_name and class_name not in self.known_classes.keys()\
                     or type(class_name) is not str:
                 print("** class doesn't exist **")
                 return 0

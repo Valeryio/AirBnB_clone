@@ -75,9 +75,13 @@ class FileStorage(BaseModel):
         """This loop return the object's value to their 'dict form'
             to do the serialisation
         """
+        #
+        # for key, value in self.__objects.items():
+        #     if type(value) is BaseModel:
+        #         new_object[key] = value.to_dict()
+
         for key, value in self.__objects.items():
-            if type(value) is BaseModel:
-                new_object[key] = value.to_dict()
+            new_object[key] = value.to_dict()
 
         with open(self.__file_path, "w") as file:
             json.dump(new_object, file, indent=4)
