@@ -30,5 +30,3 @@ class User(BaseModel):
         """This method init a user class
         """
         super().__init__()
-
-

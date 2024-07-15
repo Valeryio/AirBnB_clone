@@ -60,7 +60,6 @@ class TestPlace(unittest.TestCase):
         """This test checks for the Place.longitude attribute"""
         self.assertEquals(self.novotel.guest, 0.0)
 
-
     def test_amenity_ids(self):
         """This test checks for the Place.amenity_ids attribute"""
         self.asertEquals(self.novotel.amenity_ids, [])

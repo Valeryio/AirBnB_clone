@@ -3,6 +3,7 @@
 """This is the module about the console of HBNB"""
 
 import cmd
+from models import storage
 from models.user import User
 from models.city import City
 from models.place import Place
@@ -11,7 +12,6 @@ from models.review import Review
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
-from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -22,8 +22,8 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     known_classes = {"BaseModel": BaseModel, "FileStorage": FileStorage,
-                     "User": User, "City": City, "Place": Place, "State": State,
-                     "Review": Review, "Amenity": Amenity}
+                     "User": User, "City": City, "Place": Place,
+                     "State": State, "Review": Review, "Amenity": Amenity}
 
     def do_create(self, line):
         """ This method creates a new instance of BaseModel and
@@ -113,7 +113,8 @@ class HBNBCommand(cmd.Cmd):
             object_attr_value = line_arguments[3].replace("\"", "")
             object_key = object_class_name + "." + object_id
 
-            setattr(storage.objects[object_key], object_attr, object_attr_value)
+            setattr(storage.objects[object_key], object_attr,
+                    object_attr_value)
             storage.save()
 
     def do_quit(self, line):
@@ -132,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, line):
         """This is the end of file program that quits the cmd
         @param
-            line: 
+            line:
         @return:
             True for the execution of the program
         """
