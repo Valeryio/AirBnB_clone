@@ -77,6 +77,7 @@ class HBNBCommand(cmd.Cmd):
                     key_to_delete = key
 
             storage.objects.pop(key_to_delete)
+            storage.save()
             # print("After all : ", storage.objects)
 
     def do_all(self, line):
@@ -113,6 +114,7 @@ class HBNBCommand(cmd.Cmd):
 
             #print("New update : ", new_object)
             setattr(storage.objects[object_key], object_attr, object_attr_value)
+            storage.save()
             # storage.objects[object_key][object_attr] = object_attr_value
 
             # print("Everything is well", object_attr_value)
