@@ -27,10 +27,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             new_model = BaseModel()
             storage.new(new_model)
-            storage.save()
             # print(storage.objects)
-            # print("Let's return the id")
-            print(new_model.id)
+            return new_model.id
 
     def do_show(self, line):
         """This method prints the string representation of an instance based

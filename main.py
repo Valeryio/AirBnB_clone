@@ -74,11 +74,15 @@ def exec_command(my_console, the_command, last_lines = 1):
 result = exec_command(my_console, "create BaseModel")
 if result is None or result == "":
     print("FAIL: No ID retrieved")
-    
+
+print("The result : ", result)
+
+# """
 with open(file_path, "r") as file:
     s_file = file.read()
     if result not in s_file:
         print("FAIL: New ID not in the JSON file")
 print("OK", end="")
+# """
 
 shutil.copy("tmp_console_main.py", "console.py")
