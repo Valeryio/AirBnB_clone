@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             new_model = BaseModel()
             storage.new(new_model)
-            print(storage.objects)
+            # print(storage.objects)
 
     def do_show(self, line):
         """This method prints the string representation of an instance based
@@ -59,16 +59,22 @@ class HBNBCommand(cmd.Cmd):
             # else:
               #  print("** no instance found **")
 
-    def do_destroy(self, id_to_delete):
-        key_to_delete = ""
-        all_objects = storage.objects
-        print("Before all : ", all_objects)
-        for key, value in all_objects.items():
-            if value.__dict__['id'] == id_to_delete:
-                key_to_delete = key
+    def do_destroy(self, line):
 
-        storage.objects.pop(key_to_delete)
-        print("After all : ", storage.objects)
+        right_command = self.checker(line)
+
+        if right_command:
+            line_arguments = line.split(" ")
+            id_to_delete = line_arguments[1]
+            key_to_delete = ""
+            all_objects = storage.objects
+            # print("Before all : ", all_objects)
+            for key, value in all_objects.items():
+                if value.__dict__['id'] == id_to_delete:
+                    key_to_delete = key
+
+            storage.objects.pop(key_to_delete)
+            # print("After all : ", storage.objects)
 
     def do_all(self, line):
         """This method prints all the objects in the local storage"""
@@ -80,7 +86,10 @@ class HBNBCommand(cmd.Cmd):
             print(all_objects)
 
     def do_update(self, line):
-        """This method updates an object in the storage instance"""
+        """This method updates an object in the storage instance
+            @param:
+                line: the command line to execute
+        """
 
         right_command = self.update_checker(line)
 
@@ -103,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             setattr(storage.objects[object_key], object_attr, object_attr_value)
             # storage.objects[object_key][object_attr] = object_attr_value
 
-            print("Everything is well", object_attr_value)
+            # print("Everything is well", object_attr_value)
 
 
 
