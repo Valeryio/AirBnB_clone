@@ -9,10 +9,12 @@ import shutil
  Cleanup file storage
 """
 import os
+
 file_path = "file.json"
 if not os.path.exists(file_path):
     try:
         from models.engine.file_storage import FileStorage
+
         file_path = FileStorage._FileStorage__file_path
     except:
         pass
@@ -38,11 +40,12 @@ with open("tmp_console_main.py", "r") as file_i:
                 in_main = True
             elif in_main:
                 if "cmdloop" not in line:
-                    file_o.write(line.lstrip("    ")) 
+                    file_o.write(line.lstrip("    "))
             else:
                 file_o.write(line)
 
 import console
+from models import storage
 
 """
  Create console
@@ -58,7 +61,9 @@ my_console.use_rawinput = False
 """
  Exec command
 """
-def exec_command(my_console, the_command, last_lines = 1):
+
+
+def exec_command(my_console, the_command, last_lines=1):
     my_console.stdout = io.StringIO()
     real_stdout = sys.stdout
     sys.stdout = my_console.stdout
@@ -66,7 +71,8 @@ def exec_command(my_console, the_command, last_lines = 1):
     my_console.onecmd(the_command)
     sys.stdout = real_stdout
     lines = my_console.stdout.getvalue().split("\n")
-    return "\n".join(lines[(-1*(last_lines+1)):-1])
+    return "\n".join(lines[(-1 * (last_lines + 1)):-1])
+
 
 """
  Tests
@@ -75,14 +81,19 @@ result = exec_command(my_console, "create BaseModel")
 if result is None or result == "":
     print("FAIL: No ID retrieved")
 
-print("The result : ", result)
-
-# """
 with open(file_path, "r") as file:
     s_file = file.read()
+    print("IN the file : ", s_file)
     if result not in s_file:
         print("FAIL: New ID not in the JSON file")
+
+model_id = result
+exec_command(my_console, "destroy BaseModel {}".format(model_id))
+with open(file_path, "r") as file:
+    s_file = file.read()
+    print(s_file)
+    if model_id in s_file:
+        print("FAIL: New ID is still in the JSON file")
 print("OK", end="")
-# """
 
 shutil.copy("tmp_console_main.py", "console.py")
