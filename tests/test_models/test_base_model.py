@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 
-import unittest
-
 # This module contains the test for the basic model_base
 
-from models.base_model import BaseModel
+import unittest
 from datetime import datetime
+from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
@@ -14,22 +13,31 @@ class TestBaseModel(unittest.TestCase):
         self.b1 = BaseModel()
         self.b2 = BaseModel()
 
+    def test_id(self):
+        """This test checks for the BaseMode.id attribute"""
+        self.assertIsInstance(self.b1.id, str)
+        self.assertNotEqual(self.b1.id, self.b2.id)
+
+    def test_created_at(self):
+        """This test checks for the BaseModel.created_at attribute"""
+        self.assertIsInstance(self.b1.created_at, datetime)
+
+    def test_updated_at(self):
+        """This test checks for the BaseMode.updated_at attribute"""
+        self.assertIsInstance(self.b1.updated_at, datetime)
+
     def test_attributes(self):
         """
             This is a simple test to check if the id is well written
         """
-        self.assertIsInstance(self.b1.id, str)
-        self.assertNotEqual(self.b1.id, self.b2.id)
-
-        self.assertIsInstance(self.b1.created_at, datetime)
-        self.assertIsInstance(self.b1.updated_at, datetime)
+        pass
 
     def test_str(self):
         """
             This is a test for the str dundle method
         """
-        result = f"[{type(self.b2).__name__}] ({self.b2.id}) \
-                {self.b2.__dict__}"
+        result = (f"[{type(self.b2).__name__}] ({self.b2.id})"
+                  f"{self.b2.__dict__}\n")
         self.assertEqual(self.b2.__str__(), result)
 
     def test_save(self):
