@@ -22,5 +22,5 @@ class City(BaseModel):
     name = ""
 
     def __init__(self):
-        """This method inits the class"""
+        """This method init the class"""
         super().__init__()

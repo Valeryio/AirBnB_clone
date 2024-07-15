@@ -94,29 +94,5 @@ class FileStorage(BaseModel):
                 reloaded_obj = json.load(file)
                 for key, value in reloaded_obj.items():
                     self.__objects[key] = BaseModel(value)
-
-            """
-                simplified_obj = {}
-
-                print("This is our object : ", reloaded_obj)
-
-                for key, value in reloaded_obj.items():
-                    tmp_dict = {}
-                    for second_key, second_value in value.items():
-                        if second_key != "__class__":
-                            tmp_dict[second_key] = second_value
-                    simplified_obj[key] = tmp_dict
-
-                self.__objects = simplified_obj
-
-                class_mapping = {"User": User}  # Example class mapping
-                for key, value in obj_dict.items():
-                    cls_name = value["__class__"]
-                    del value["__class__"]  # Remove "__class__"
-                    if cls_name in class_mapping:
-                        self.new(class_mapping[cls_name](**value))
-                    else:
-                        print(f"Unknown class: {cls_name}")
-            """
         except FileNotFoundError:
             pass
